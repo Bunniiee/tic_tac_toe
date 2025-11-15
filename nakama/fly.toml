@@ -1,0 +1,47 @@
+# Fly.io configuration for Nakama server
+# Generated for production deployment
+
+app = "nakama-tic-tac-toe"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  # Database connection will be set via Fly secrets
+  NAKAMA_DATABASE_URL = "postgres://nakama:${DATABASE_PASSWORD}@${DATABASE_HOST}:5432/nakama?sslmode=disable"
+  NAKAMA_SOCKET_SERVER_KEY = "${SOCKET_SERVER_KEY}"
+
+[http_service]
+  internal_port = 7350
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    timeout = "5s"
+    path = "/healthz"
+
+[[services]]
+  internal_port = 7349
+  protocol = "tcp"
+  processes = ["app"]
+
+[[services]]
+  internal_port = 7351
+  protocol = "tcp"
+  processes = ["app"]
+
+[experimental]
+  auto_rollback = true
+
+# Volume for persistent data (if needed)
+# [[mounts]]
+#   source = "nakama_data"
+#   destination = "/nakama/data"
+

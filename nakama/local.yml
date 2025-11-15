@@ -1,0 +1,49 @@
+name: nakama
+data_dir: "./data/"
+
+logger:
+  level: "DEBUG"
+  stdout: true
+  file: "nakama.log"
+
+database:
+  address:
+    - "postgres://postgres:localdb@postgres:5432/nakama?sslmode=disable"
+  max_open_conns: 100
+  max_idle_conns: 100
+  conn_max_lifetime: 60
+
+socket:
+  server_key: "defaultkey"
+  port: 7351
+  protocol: "tcp"
+  max_message_size_bytes: 4096
+  read_buffer_size_bytes: 4096
+  write_buffer_size_bytes: 4096
+  idle_timeout_ms: 60000
+  write_wait_ms: 5000
+  pong_wait_ms: 25000
+  ping_period_ms: 15000
+  pong_backoff_threshold: 5000
+
+runtime:
+  path: "./build"
+  http_key: "defaultkey"
+  read_only_globals: false
+  js_read_only_globals: false
+  lua_read_only_globals: false
+
+match:
+  input_queue_size: 512
+  call_queue_size: 512
+  join_attempt_queue_size: 512
+  join_marker_deadline_ms: 7000
+  max_empty_sec: 300
+  label_update_interval_ms: 5000
+
+console:
+  username: "admin"
+  password: "password"
+  signing_key: "defaultsigningkey"
+  port: 7352
+  read_only: false
