@@ -27,10 +27,6 @@ A production-ready multiplayer Tic-Tac-Toe game built with React TypeScript fron
 - PostgreSQL
 - Docker
 
-### Deployment
-- Frontend: Vercel
-- Backend: Fly.io
-
 ## Project Structure
 
 ```
@@ -57,9 +53,9 @@ tic_tac_toe/
 │   │   ├── tsconfig.json
 │   │   └── package.json
 │   ├── local.yml            # Local Nakama config
-│   ├── Dockerfile           # For Fly.io deployment
+│   ├── Dockerfile
 │   ├── docker-compose.yml   # Local development
-│   └── fly.toml             # Fly.io configuration
+│   └── fly.toml
 │
 ├── tests/                   # Test suites
 │   ├── server/              # Server logic unit tests
@@ -75,8 +71,6 @@ tic_tac_toe/
 - Node.js 18+ and npm
 - Docker and Docker Compose
 - PostgreSQL 12+ (or use Docker Compose)
-- Fly.io account (for backend deployment)
-- Vercel account (for frontend deployment)
 
 ### Local Development
 
@@ -141,74 +135,6 @@ npm run dev
 ```
 
 6. Open http://localhost:3000 in your browser
-
-## Deployment
-
-### Backend Deployment (Fly.io)
-
-1. Install Fly.io CLI:
-```bash
-# macOS/Linux
-curl -L https://fly.io/install.sh | sh
-
-# Windows
-# Download from https://fly.io/docs/getting-started/installing-flyctl/
-```
-
-2. Login to Fly.io:
-```bash
-fly auth login
-```
-
-3. Create a Fly.io app:
-```bash
-cd nakama
-fly launch
-```
-
-4. Set environment variables:
-```bash
-fly secrets set DATABASE_URL=your_postgres_url
-fly secrets set SOCKET_SERVER_KEY=your_server_key
-```
-
-5. Deploy:
-```bash
-fly deploy
-```
-
-6. Get your app URL:
-```bash
-fly status
-```
-
-### Frontend Deployment (Vercel)
-
-1. Install Vercel CLI:
-```bash
-npm install -g vercel
-```
-
-2. Login to Vercel:
-```bash
-vercel login
-```
-
-3. Deploy:
-```bash
-cd frontend
-vercel
-```
-
-4. Set environment variables in Vercel dashboard:
-- `VITE_NAKAMA_SERVER_URL`: Your Fly.io app URL
-- `VITE_NAKAMA_SERVER_PORT`: 443 (for HTTPS)
-- `VITE_NAKAMA_SERVER_KEY`: Your server key
-
-5. Redeploy:
-```bash
-vercel --prod
-```
 
 ## Architecture Decisions
 
